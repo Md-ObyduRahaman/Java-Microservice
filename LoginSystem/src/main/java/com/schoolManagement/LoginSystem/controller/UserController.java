@@ -3,13 +3,20 @@ package com.schoolManagement.LoginSystem.controller;
 
 import com.schoolManagement.LoginSystem.entity.AuthRequest;
 import com.schoolManagement.LoginSystem.entity.UserInfo;
+import com.schoolManagement.LoginSystem.exception.BaseResponse;
+import com.schoolManagement.LoginSystem.exception.ResourceNotFoundException;
 import com.schoolManagement.LoginSystem.service.JwtService;
+import com.schoolManagement.LoginSystem.service.UserInfoDetails;
 import com.schoolManagement.LoginSystem.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,13 +45,19 @@ public class UserController {
 
     @GetMapping("/user/userProfile")
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    public String userProfile() {
-        return "Welcome to User Profile";
+    public ResponseEntity<BaseResponse<String>> userProfile() {
+
+        //if (true) throw new ResourceNotFoundException("ResourceNotFoundException");
+
+        BaseResponse<String> response = new BaseResponse<>(
+                "User found successfully", "userInfoDetails", HttpStatus.OK.value());
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/admin/adminProfile")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String adminProfile() {
+
         return "Welcome to Admin Profile";
     }
 

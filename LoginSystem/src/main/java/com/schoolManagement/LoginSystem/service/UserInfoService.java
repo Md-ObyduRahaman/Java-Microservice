@@ -1,6 +1,7 @@
 package com.schoolManagement.LoginSystem.service;
 
 import com.schoolManagement.LoginSystem.entity.UserInfo;
+import com.schoolManagement.LoginSystem.exception.ResourceNotFoundException;
 import com.schoolManagement.LoginSystem.repository.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,8 +26,12 @@ public class UserInfoService implements UserDetailsService {
         Optional<UserInfo> userDetail = repository.findByEmail(username); // Assuming 'email' is used as username
 
         // Converting UserInfo to UserDetails
-        return userDetail.map(UserInfoDetails::new)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+       /* return userDetail.map(UserInfoDetails::new)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));*/
+
+        return userDetail.map(userInfo -> new UserInfoDetails(userInfo))
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found: " + username));
+
     }
 
     public String addUser(UserInfo userInfo) {

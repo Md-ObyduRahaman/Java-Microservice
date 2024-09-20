@@ -8,6 +8,7 @@ import com.schoolManagement.LoginSystem.exception.ResourceNotFoundException;
 import com.schoolManagement.LoginSystem.service.JwtService;
 import com.schoolManagement.LoginSystem.service.UserInfoDetails;
 import com.schoolManagement.LoginSystem.service.UserInfoService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,12 +46,12 @@ public class UserController {
 
     @GetMapping("/user/userProfile")
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    public ResponseEntity<BaseResponse<String>> userProfile() {
+    public ResponseEntity<BaseResponse<String>> userProfile(HttpServletRequest request) {
 
         //if (true) throw new ResourceNotFoundException("ResourceNotFoundException");
 
         BaseResponse<String> response = new BaseResponse<>(
-                "User found successfully", "userInfoDetails", HttpStatus.OK.value());
+                "User found successfully", "userInfoDetails", HttpStatus.OK.value(), request.getRequestURI());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

@@ -18,7 +18,7 @@ public class ErrorAttributeAspect {
     @Before("requestMethods(request)")
     public void checkErrorAttribute(HttpServletRequest request) {
         Object error = request.getAttribute("error");
-        if (error == null) {
+        if (error != null) {
             throw new AuthException("Error attribute is null");
         }
     }

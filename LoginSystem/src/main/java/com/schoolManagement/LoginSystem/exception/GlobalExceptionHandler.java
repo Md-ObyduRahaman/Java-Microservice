@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.SignatureException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,13 +25,18 @@ import java.util.Date;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(AuthException.class)
-    public ResponseEntity<BaseResponse<Void>> handleAuthException(AuthException ex) {
+    public ResponseEntity<BaseResponse<Void>> handleAuthException(AuthException ex, WebRequest request) {
+
+
+        // Create a response with the message, null data, status code, and the request path
         BaseResponse<Void> response = new BaseResponse<>(
                 ex.getMessage(),
                 null,
-                HttpStatus.UNAUTHORIZED.value() // 401 status code
+                HttpStatus.UNAUTHORIZED.value(),  // 401 status code
+                request.getDescription(false)                      // Include the request path
         );
 
+        // Return the response with the status code
         return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
     }
 
@@ -77,7 +83,8 @@ public class GlobalExceptionHandler {
         BaseResponse<Void> response = new BaseResponse<>(
                 errorDetails.getMessage(),
                 null,
-                HttpStatus.NOT_FOUND.value()
+                HttpStatus.NOT_FOUND.value(),
+                request.getDescription(false)
         );
 
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
@@ -98,7 +105,8 @@ public class GlobalExceptionHandler {
         BaseResponse<Void> response = new BaseResponse<>(
                 errorDetails.getMessage(),
                 null,
-                HttpStatus.INTERNAL_SERVER_ERROR.value()
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                request.getDescription(false)
         );
 
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);

@@ -24,13 +24,8 @@ public class UserInfoService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<UserInfo> userDetail = repository.findByEmail(username); // Assuming 'email' is used as username
-
-        // Converting UserInfo to UserDetails
-       /* return userDetail.map(UserInfoDetails::new)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));*/
-
-        return userDetail.map(userInfo -> new UserInfoDetails(userInfo))
-                    .orElseThrow(() -> new ResourceNotFoundException("User not found: " + username));
+        return userDetail.map(UserInfoDetails::new)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found: " + username));
 
     }
 

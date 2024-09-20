@@ -1,16 +1,22 @@
 package com.schoolManagement.LoginSystem.exception;
 
+import lombok.*;
+import org.springframework.http.HttpStatus;
+
 import java.util.Date;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class BaseResponse<T> {
     private Date timestamp;
     private String message;
     private T data;
-    private int statusCode;
+    private HttpStatus statusCode;
     private String path; // New field for tracking request path
 
     // Constructor with path
-    public BaseResponse(String message, T data, int statusCode, String path) {
+    public BaseResponse(String message, T data, HttpStatus statusCode, String path) {
         this.timestamp = new Date(); // Automatically set timestamp
         this.message = message;
         this.data = data;
@@ -18,28 +24,8 @@ public class BaseResponse<T> {
         this.path = path; // Set path
     }
 
-    // Getters and setters
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public T getData() {
-        return data;
-    }
 
     public int getStatusCode() {
-        return statusCode;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
+        return statusCode.value();
     }
 }

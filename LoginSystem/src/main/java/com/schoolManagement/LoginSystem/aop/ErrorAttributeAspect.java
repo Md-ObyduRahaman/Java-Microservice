@@ -31,7 +31,7 @@ public class ErrorAttributeAspect {
 public class ErrorAttributeAspect {
 
     // Pointcut to match all controller methods returning ResponseEntity, regardless of parameters
-    @Pointcut("execution(org.springframework.http.ResponseEntity *(..))")
+   /* @Pointcut("execution(org.springframework.http.ResponseEntity *(..))")
     public void controllerMethods() {}
 
     // Before advice that checks for any Exception argument in the method
@@ -44,6 +44,6 @@ public class ErrorAttributeAspect {
                 return new AuthException("Exception detected: " + exception.getMessage());            }
         }
         return  null;
-    }
+    }*/
 }
 

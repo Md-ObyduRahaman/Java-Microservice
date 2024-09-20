@@ -1,6 +1,6 @@
 package com.schoolManagement.LoginSystem.exception;
 
-public class AuthException  extends Exception {
+public class AuthException  extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 

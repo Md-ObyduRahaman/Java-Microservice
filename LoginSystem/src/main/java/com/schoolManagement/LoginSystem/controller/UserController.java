@@ -46,10 +46,11 @@ public class UserController {
 
     @GetMapping("/user/userProfile")
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    public ResponseEntity<BaseResponse<String>> userProfile(HttpServletRequest request) {
+    public ResponseEntity<BaseResponse<String>> userProfile(HttpServletRequest request, @RequestAttribute Exception error) {
 
         //if (true) throw new ResourceNotFoundException("ResourceNotFoundException");
 
+        System.out.println(error.getMessage());
         BaseResponse<String> response = new BaseResponse<>(
                 "User found successfully", "userInfoDetails", HttpStatus.OK.value(), request.getRequestURI());
         return new ResponseEntity<>(response, HttpStatus.OK);

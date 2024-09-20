@@ -67,16 +67,16 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
 
         } catch (SignatureException | MalformedJwtException e) {
-            exceptionResolver.resolveException(request, response, null, new AuthException("Invalid JWT signature or token format: " + e.getMessage()));
-            //request.setAttribute("error", e);
+            //exceptionResolver.resolveException(request, response, null, new AuthException("Invalid JWT signature or token format: " + e.getMessage()));
+            request.setAttribute("error", e);
         } catch (ExpiredJwtException e) {
-            exceptionResolver.resolveException(request, response, null, new AuthException("JWT token has expired: " + e.getMessage()));
-            //request.setAttribute("error", e);
+            //exceptionResolver.resolveException(request, response, null, new AuthException("JWT token has expired: " + e.getMessage()));
+            request.setAttribute("error", e);
         } catch (Exception e) {
-            exceptionResolver.resolveException(request, response, null, new AuthException("Invalid JWT signature or token format: " + e.getMessage()));
-          //  request.setAttribute("error", e);
+            //exceptionResolver.resolveException(request, response, null, new AuthException("Invalid JWT signature or token format: " + e.getMessage()));
+            request.setAttribute("error", e);
         }
 
-       // filterChain.doFilter(request, response);
+        filterChain.doFilter(request, response);
     }
 }

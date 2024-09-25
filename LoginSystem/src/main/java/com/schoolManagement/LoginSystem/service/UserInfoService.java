@@ -29,10 +29,19 @@ public class UserInfoService implements UserDetailsService {
 
     }
 
-    public String addUser(UserInfo userInfo) {
-        // Encode password before saving the user
-        userInfo.setPassword(encoder.encode(userInfo.getPassword()));
-        repository.save(userInfo);
-        return "User Added Successfully";
+    public UserInfo addUser(UserInfo userInfo) {
+
+        UserInfo info;
+
+        try {
+            userInfo.setPassword(encoder.encode(userInfo.getPassword()));
+            info=repository.save(userInfo);
+        }
+        catch (Exception e)
+        {
+            throw new ResourceNotFoundException("Duplicate entry :"  + userInfo.getEmail());
+        }
+
+        return info;
     }
 }

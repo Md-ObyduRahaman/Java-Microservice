@@ -35,6 +35,8 @@ public class UserController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    UserInfo ssInfo;
 
     @GetMapping("/welcome")
     public String welcome() {
@@ -42,22 +44,36 @@ public class UserController {
     }
 
     @PostMapping("/addNewUser")
-    public String addNewUser(@RequestBody UserInfo userInfo) {
-        return service.addUser(userInfo);
+    public ResponseEntity<BaseResponse<String>> addNewUser(@RequestBody UserInfo userInfo) {
+        BaseResponse<String> response;
+        if(service.addUser(userInfo).getEmail().isEmpty()){
+            response = new BaseResponse<>(
+                    "User not found", null, HttpStatus.BAD_GATEWAY, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
+            return new ResponseEntity<>(response,HttpStatus.BAD_GATEWAY);
+        }
+        else {
+            response = new BaseResponse<>(
+                    "User Added Successfully", null, HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }
     }
 
     @GetMapping("/user/userProfile")
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    public ResponseEntity<BaseResponse<String>> userProfile() {
+    public ResponseEntity<BaseResponse<UserInfo>> userProfile() {
 
-        BaseResponse<String> response;
+
+        ssInfo.setId(12);
+        ssInfo.setEmail("sojib@gmail.com");
+        ssInfo.setName("Sojib");
+                BaseResponse<UserInfo> response;
         if (false) {
             response = new BaseResponse<>(
                     "User not found", null, HttpStatus.BAD_GATEWAY, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
             return new ResponseEntity<>(response,HttpStatus.BAD_GATEWAY);
         } else {
             response = new BaseResponse<>(
-                    "User found successfully", "userInfoDetails", HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
+                    "User found successfully", ssInfo, HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
 

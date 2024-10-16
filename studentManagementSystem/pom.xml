@@ -8,11 +8,11 @@
 		<version>3.3.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.studenService</groupId>
-	<artifactId>studenService</artifactId>
+	<groupId>com.studentManagementSystem</groupId>
+	<artifactId>studentManagementSystem</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>studenService</name>
-	<description>studenService using spring boot and microService</description>
+	<name>studentManagementSystem</name>
+	<description>Microservice using Spring Boot for studentManagementSystem</description>
 	<url/>
 	<licenses>
 		<license/>

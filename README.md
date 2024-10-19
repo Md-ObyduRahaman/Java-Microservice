@@ -8,9 +8,13 @@ This project is a School Management System that is divided into multiple microse
 - **Port**: 8081
 - **Description**: This microservice handles user authentication and authorization. It manages login, logout, and token-based authentication using JWT.
 
-### 2. Student Management System
+### 2. Students Management System
 - **Port**: 8082
-- **Description**: This microservice manages student information including registration, updates, and retrieval of student records.
+- **Description**: This microservice manages students information including registration, updates, and retrieval of students records.
+
+### 3. Parents Management System
+- **Port**: 8083
+- **Description**: This microservice manages parents information including registration, updates, and retrieval of parents records.
 
 ---
 

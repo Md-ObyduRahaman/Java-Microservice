@@ -24,4 +24,20 @@ public class StudentService {
     public Optional<Student> getStudentById(int id) {
         return studentRepository.findById(id);
     }
+
+    public Optional<Student> addStudent(Student student) {
+        studentRepository.save(student);
+        return Optional.of(student);
+    }
+
+    public Optional<Student> updateStudent(Student student) {
+        studentRepository.save(student);
+        return Optional.of(student);
+    }
+    public Optional<Student> deleteStudent(Integer studentId) {
+        Optional<Student> student = studentRepository.findById(studentId);
+        student.ifPresent(studentRepository::delete); // Delete if student is present
+        return student; // Return the student if found, or Optional.empty() if not found
+    }
+
 }

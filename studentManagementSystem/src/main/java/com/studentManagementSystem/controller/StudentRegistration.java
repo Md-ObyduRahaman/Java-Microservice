@@ -3,15 +3,11 @@ package com.studentManagementSystem.controller;
 import com.studentManagementSystem.entity.BaseResponse;
 import com.studentManagementSystem.entity.Student;
 import com.studentManagementSystem.exception.ResourceNotFoundException;
-import com.studentManagementSystem.repository.StudentRepository;
 import com.studentManagementSystem.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
@@ -52,16 +48,36 @@ public class StudentRegistration {
         }
     }
 
-   /* {
-        "id": 1,
-            "firstName": "Md Oydur",
-            "lastName": "sojin",
-            "email": "so@gmail.com",
-            "dateOfBirth": "2024-09-02",
-            "phoneNumber": "01783726898",
-            "address": "panthpath, Dahaka",
-            "gender": "M"
-    }*/
+    @PostMapping("addStudent")
+    public ResponseEntity<BaseResponse<Student>> addStudent(@RequestBody Student student){
+        BaseResponse<Student> response;
+        Optional<Student> student1=studentService.addStudent(student);
+
+        if (student1.isPresent()) {
+            response = new BaseResponse<>(
+                    "Student saved successfully", student, HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        else {
+            throw new ResourceNotFoundException("Student not saved" );
+        }
+    }
+    @DeleteMapping("{studentID}")
+    public ResponseEntity<BaseResponse<Boolean>> deleteStudent(@PathVariable Integer studentID){
+        Optional<Student> student1=studentService.deleteStudent(studentID);
+        BaseResponse<Boolean> response;
+        if (student1.isPresent()) {
+            response = new BaseResponse<>(
+                    "Student Deleted successfully", true, HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
+            return new ResponseEntity<>(response, HttpStatus.OK);}
+        else {
+            response = new BaseResponse<>(
+                    "Student not found", false, HttpStatus.NOT_FOUND, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+
+    }
+
 
 
 }

@@ -1,0 +1,98 @@
+{
+	"info": {
+		"_postman_id": "8aa94492-1783-4f41-8245-00d26ec9891a",
+		"name": "student",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "addStudent",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\": 1,\r\n            \"firstName\": \"Md Oydur\",\r\n            \"lastName\": \"sojin\",\r\n            \"email\": \"stoj@gmail.com\",\r\n            \"dateOfBirth\": \"2024-09-02\",\r\n            \"phoneNumber\": \"01783726898\",\r\n            \"address\": \"panthpath, Dahaka\",\r\n            \"gender\": \"M\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/student/addStudent",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"student",
+						"addStudent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getByID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/student/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"student",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllStudent",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/student/allStudents",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"student",
+						"allStudents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteStudent",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/student/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"student",
+						"4"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

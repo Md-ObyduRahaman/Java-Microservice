@@ -1,0 +1,98 @@
+{
+	"info": {
+		"_postman_id": "dcf955d8-9dde-4170-b09a-f7609b1d5635",
+		"name": "parent",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getAllParents",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8083/Parent/allParentDetails",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"Parent",
+						"allParentDetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getByID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8083/Parent/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"Parent",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addParent",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"id\": 1,\r\n        \"fatherName\": \"34\",\r\n        \"motherName\": \"4\",\r\n        \"phoneNumber\": \"54\",\r\n        \"email\": \"45\",\r\n        \"address\": \"45\",\r\n        \"studentId\": 4\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8083/Parent/addParentDetails",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"Parent",
+						"addParentDetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteParents",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8083/Parent/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"Parent",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

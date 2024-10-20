@@ -10,7 +10,7 @@ This project is a School Management System that is divided into multiple microse
 
 ### 2. Students Management System
 - **Port**: 8082
-- **Description**: This microservice manages students information including registration, updates, and retrieval of students records.
+- **Description**: This microservice manages Students information including registration, updates, and retrieval of Students records.
 
 ### 3. Parents Management System
 - **Port**: 8083

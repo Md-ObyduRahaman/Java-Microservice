@@ -17,28 +17,28 @@ public class ParentService {
 
 
 
-    public Optional<List<ParentDetails>> getAllParentDetailss() {
-        List<ParentDetails> ParentDetailss = parentRepository.findAll();
-        return ParentDetailss.isEmpty() ? Optional.empty() : Optional.of(ParentDetailss);
+    public Optional<List<ParentDetails>> getAllStudents() {
+        List<ParentDetails> Students = parentRepository.findAll();
+        return Students.isEmpty() ? Optional.empty() : Optional.of(Students);
     }
 
-    public Optional<ParentDetails> getParentDetailsById(int id) {
+    public Optional<ParentDetails> getStudentById(int id) {
         return parentRepository.findById(id);
     }
 
-    public Optional<ParentDetails> addParentDetails(ParentDetails ParentDetails) {
-        parentRepository.save(ParentDetails);
-        return Optional.of(ParentDetails);
+    public Optional<ParentDetails> addStudent(ParentDetails Student) {
+        parentRepository.save(Student);
+        return Optional.of(Student);
     }
 
-    public Optional<ParentDetails> updateParentDetails(ParentDetails ParentDetails) {
-        parentRepository.save(ParentDetails);
-        return Optional.of(ParentDetails);
+    public Optional<ParentDetails> updateStudent(ParentDetails Student) {
+        parentRepository.save(Student);
+        return Optional.of(Student);
     }
-    public Optional<ParentDetails> deleteParentDetails(Integer ParentDetailsId) {
-        Optional<ParentDetails> ParentDetails = parentRepository.findById(ParentDetailsId);
-        ParentDetails.ifPresent(parentRepository::delete); // Delete if ParentDetails is present
-        return ParentDetails; // Return the ParentDetails if found, or Optional.empty() if not found
+    public Optional<ParentDetails> deleteStudent(Integer StudentId) {
+        Optional<ParentDetails> Student = parentRepository.findById(StudentId);
+        Student.ifPresent(parentRepository::delete); // Delete if Student is present
+        return Student; // Return the Student if found, or Optional.empty() if not found
     }
 
 }

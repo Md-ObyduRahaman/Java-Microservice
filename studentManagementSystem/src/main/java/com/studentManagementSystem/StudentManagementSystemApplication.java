@@ -1,13 +1,13 @@
-package com.ParentDetailsManagementSystem;
+package com.studentManagementSystem;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ParentDetailsManagementSystemApplication {
+public class StudentManagementSystemApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ParentDetailsManagementSystemApplication.class, args);
+		SpringApplication.run(StudentManagementSystemApplication.class, args);
 	}
 
 }

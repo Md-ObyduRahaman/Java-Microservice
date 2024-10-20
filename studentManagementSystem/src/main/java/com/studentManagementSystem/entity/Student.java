@@ -1,12 +1,12 @@
-package com.ParentDetailsManagementSystem.entity;
+package com.studentManagementSystem.entity;
 
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "ParentDetailss")
-public class ParentDetails {
+@Table(name = "students")
+public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,10 +33,10 @@ public class ParentDetails {
     private String gender;
 
     // Constructors
-    public ParentDetails() {
+    public Student() {
     }
 
-    public ParentDetails(String firstName, String lastName, String email, LocalDate dateOfBirth, String phoneNumber, String address, String gender) {
+    public Student(String firstName, String lastName, String email, LocalDate dateOfBirth, String phoneNumber, String address, String gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

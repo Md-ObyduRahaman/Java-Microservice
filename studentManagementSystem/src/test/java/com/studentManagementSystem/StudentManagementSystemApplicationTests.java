@@ -1,10 +1,10 @@
-package com.ParentDetailsManagementSystem;
+package com.StudentManagementSystem;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ParentDetailsManagementSystemApplicationTests {
+class StudentManagementSystemApplicationTests {
 
 	@Test
 	void contextLoads() {

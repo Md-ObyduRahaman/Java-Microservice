@@ -1,4 +1,4 @@
-package com.ParentDetailsManagementSystem.entity;
+package com.studentManagementSystem.entity;
 
 import lombok.*;
 import org.springframework.http.HttpStatus;

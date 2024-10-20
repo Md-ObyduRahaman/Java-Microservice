@@ -1,7 +1,7 @@
-package com.ParentDetailsManagementSystem.service;
+package com.studentManagementSystem.service;
 
-import com.ParentDetailsManagementSystem.entity.ParentDetails;
-import com.ParentDetailsManagementSystem.repository.parentRepository;
+import com.studentManagementSystem.entity.Student;
+import com.studentManagementSystem.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,35 +9,35 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ParentDetailsService {
+public class StudentService {
 
     @Autowired
-    parentRepository parentRepository;
+    StudentRepository studentRepository;
 
 
 
-    public Optional<List<ParentDetails>> getAllParentDetailss() {
-        List<ParentDetails> ParentDetailss = parentRepository.findAll();
-        return ParentDetailss.isEmpty() ? Optional.empty() : Optional.of(ParentDetailss);
+    public Optional<List<Student>> getAllStudents() {
+        List<Student> students = studentRepository.findAll();
+        return students.isEmpty() ? Optional.empty() : Optional.of(students);
     }
 
-    public Optional<ParentDetails> getParentDetailsById(int id) {
-        return parentRepository.findById(id);
+    public Optional<Student> getStudentById(int id) {
+        return studentRepository.findById(id);
     }
 
-    public Optional<ParentDetails> addParentDetails(ParentDetails ParentDetails) {
-        parentRepository.save(ParentDetails);
-        return Optional.of(ParentDetails);
+    public Optional<Student> addStudent(Student student) {
+        studentRepository.save(student);
+        return Optional.of(student);
     }
 
-    public Optional<ParentDetails> updateParentDetails(ParentDetails ParentDetails) {
-        parentRepository.save(ParentDetails);
-        return Optional.of(ParentDetails);
+    public Optional<Student> updateStudent(Student student) {
+        studentRepository.save(student);
+        return Optional.of(student);
     }
-    public Optional<ParentDetails> deleteParentDetails(Integer ParentDetailsId) {
-        Optional<ParentDetails> ParentDetails = parentRepository.findById(ParentDetailsId);
-        ParentDetails.ifPresent(parentRepository::delete); // Delete if ParentDetails is present
-        return ParentDetails; // Return the ParentDetails if found, or Optional.empty() if not found
+    public Optional<Student> deleteStudent(Integer studentId) {
+        Optional<Student> student = studentRepository.findById(studentId);
+        student.ifPresent(studentRepository::delete); // Delete if student is present
+        return student; // Return the student if found, or Optional.empty() if not found
     }
 
 }

@@ -22,58 +22,58 @@ public class ParentsRegistration {
     @Autowired
     private ParentService parentService;
 
-    @GetMapping("/allParentDetails")
-    public ResponseEntity<BaseResponse<List<ParentDetails>>> getParentDetailsDetails(){
+    @GetMapping("/allStudent")
+    public ResponseEntity<BaseResponse<List<ParentDetails>>> getStudentDetails(){
         BaseResponse<List<ParentDetails>> response;
-        Optional<List<ParentDetails>> ParentDetailss = parentService.getAllParentDetailss();
-        if (ParentDetailss.isPresent()) {
-            List<ParentDetails> ParentDetailsList = ParentDetailss.get();
+        Optional<List<ParentDetails>> Students = parentService.getAllStudents();
+        if (Students.isPresent()) {
+            List<ParentDetails> StudentList = Students.get();
             response = new BaseResponse<>(
-                    "Resource found successfully", ParentDetailsList, HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
+                    "Resource found successfully", StudentList, HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
             return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
             throw new ResourceNotFoundException("Resource not found" );
         }
     }
 
-    @GetMapping("{ParentDetailsId}")
-    public ResponseEntity<BaseResponse<Optional<ParentDetails>>> getParentDetailsDetails(@PathVariable Integer ParentDetailsId){
+    @GetMapping("{StudentId}")
+    public ResponseEntity<BaseResponse<Optional<ParentDetails>>> getStudentDetails(@PathVariable Integer StudentId){
         BaseResponse<Optional<ParentDetails>> response;
-        Optional<ParentDetails> ParentDetails = parentService.getParentDetailsById(ParentDetailsId);
-        if (ParentDetails.isPresent()) {
+        Optional<ParentDetails> Student = parentService.getStudentById(StudentId);
+        if (Student.isPresent()) {
             response = new BaseResponse<>(
-                    "Resource found successfully", ParentDetails, HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
+                    "Resource found successfully", Student, HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
             return new ResponseEntity<>(response, HttpStatus.OK);
         }else {
             throw new ResourceNotFoundException("Resource not found" );
         }
     }
 
-    @PostMapping("addParentDetails")
-    public ResponseEntity<BaseResponse<ParentDetails>> addParentDetails(@RequestBody ParentDetails ParentDetails){
+    @PostMapping("addStudent")
+    public ResponseEntity<BaseResponse<ParentDetails>> addStudent(@RequestBody ParentDetails Student){
         BaseResponse<ParentDetails> response;
-        Optional<ParentDetails> ParentDetails1=parentService.addParentDetails(ParentDetails);
+        Optional<ParentDetails> Student1=parentService.addStudent(Student);
 
-        if (ParentDetails1.isPresent()) {
+        if (Student1.isPresent()) {
             response = new BaseResponse<>(
-                    "ParentDetails saved successfully", ParentDetails, HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
+                    "Student saved successfully", Student, HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
         else {
-            throw new ResourceNotFoundException("ParentDetails not saved" );
+            throw new ResourceNotFoundException("Student not saved" );
         }
     }
-    @DeleteMapping("{ParentDetailsID}")
-    public ResponseEntity<BaseResponse<Boolean>> deleteParentDetails(@PathVariable Integer ParentDetailsID){
-        Optional<ParentDetails> ParentDetails1=parentService.deleteParentDetails(ParentDetailsID);
+    @DeleteMapping("{StudentID}")
+    public ResponseEntity<BaseResponse<Boolean>> deleteStudent(@PathVariable Integer StudentID){
+        Optional<ParentDetails> Student1=parentService.deleteStudent(StudentID);
         BaseResponse<Boolean> response;
-        if (ParentDetails1.isPresent()) {
+        if (Student1.isPresent()) {
             response = new BaseResponse<>(
-                    "ParentDetails Deleted successfully", true, HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
+                    "Student Deleted successfully", true, HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
             return new ResponseEntity<>(response, HttpStatus.OK);}
         else {
             response = new BaseResponse<>(
-                    "ParentDetails not found", false, HttpStatus.NOT_FOUND, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
+                    "Student not found", false, HttpStatus.NOT_FOUND, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
 

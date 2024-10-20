@@ -1,6 +1,7 @@
-package com.ParentDetailsManagementSystem.exception;
+package com.parentsManagementSystem.exception;
 
-import com.ParentDetailsManagementSystem.entity.BaseResponse;
+
+import com.parentsManagementSystem.entity.BaseResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

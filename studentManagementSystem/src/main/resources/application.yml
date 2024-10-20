@@ -2,10 +2,10 @@ server:
   port: 8082
 spring:
   application:
-    name: studentManagementSystem
+    name: ParentDetailsManagementSystem
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/studentManagementService
+    url: jdbc:mysql://localhost:3306/ParentDetailsManagementService
     username: root
     password:
   jpa:

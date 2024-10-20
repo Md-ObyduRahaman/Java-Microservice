@@ -1,10 +1,10 @@
-package com.studentManagementSystem.repository;
+package com.ParentDetailsManagementSystem.repository;
 
-import com.studentManagementSystem.entity.Student;
+import com.ParentDetailsManagementSystem.entity.ParentDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StudentRepository extends JpaRepository<Student, Integer> {
+public interface parentRepository extends JpaRepository<ParentDetails, Integer> {
 
 }

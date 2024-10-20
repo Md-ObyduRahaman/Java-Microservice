@@ -1,6 +1,8 @@
-package com.ParentDetailsManagementSystem.entity;
+package com.parentsManagementSystem.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 import java.util.Date;

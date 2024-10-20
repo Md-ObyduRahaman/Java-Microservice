@@ -1,7 +1,8 @@
-package com.ParentDetailsManagementSystem.service;
+package com.parentsManagementSystem.service;
 
-import com.ParentDetailsManagementSystem.entity.ParentDetails;
-import com.ParentDetailsManagementSystem.repository.parentRepository;
+
+import com.parentsManagementSystem.entity.ParentDetails;
+import com.parentsManagementSystem.repository.ParentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,10 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ParentDetailsService {
+public class ParentService {
 
     @Autowired
-    parentRepository parentRepository;
+    ParentRepository parentRepository;
 
 
 

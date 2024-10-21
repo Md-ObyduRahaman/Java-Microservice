@@ -10,12 +10,14 @@
         <module name="LoginSystem" />
         <module name="studentManagementSystem" />
         <module name="parentsManagementSystem" />
+        <module name="StudentManagementSystem" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="LoginSystem" options="-parameters" />
+      <module name="StudentManagementSystem" options="-parameters" />
       <module name="parentsManagementSystem" options="-parameters" />
       <module name="studentManagementSystem" options="-parameters" />
     </option>

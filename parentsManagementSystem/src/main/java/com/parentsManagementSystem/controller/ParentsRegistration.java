@@ -22,7 +22,7 @@ public class ParentsRegistration {
     @Autowired
     private ParentService parentService;
 
-    @GetMapping("/allStudent")
+    @GetMapping("/allParentDetails")
     public ResponseEntity<BaseResponse<List<ParentDetails>>> getStudentDetails(){
         BaseResponse<List<ParentDetails>> response;
         Optional<List<ParentDetails>> Students = parentService.getAllStudents();
@@ -36,10 +36,10 @@ public class ParentsRegistration {
         }
     }
 
-    @GetMapping("{StudentId}")
-    public ResponseEntity<BaseResponse<Optional<ParentDetails>>> getStudentDetails(@PathVariable Integer StudentId){
+    @GetMapping("{parentId}")
+    public ResponseEntity<BaseResponse<Optional<ParentDetails>>> getStudentDetails(@PathVariable Integer parentId){
         BaseResponse<Optional<ParentDetails>> response;
-        Optional<ParentDetails> Student = parentService.getStudentById(StudentId);
+        Optional<ParentDetails> Student = parentService.getStudentById(parentId);
         if (Student.isPresent()) {
             response = new BaseResponse<>(
                     "Resource found successfully", Student, HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
@@ -49,7 +49,7 @@ public class ParentsRegistration {
         }
     }
 
-    @PostMapping("addStudent")
+    @PostMapping("addParentDetails")
     public ResponseEntity<BaseResponse<ParentDetails>> addStudent(@RequestBody ParentDetails Student){
         BaseResponse<ParentDetails> response;
         Optional<ParentDetails> Student1=parentService.addStudent(Student);
@@ -63,9 +63,9 @@ public class ParentsRegistration {
             throw new ResourceNotFoundException("Student not saved" );
         }
     }
-    @DeleteMapping("{StudentID}")
-    public ResponseEntity<BaseResponse<Boolean>> deleteStudent(@PathVariable Integer StudentID){
-        Optional<ParentDetails> Student1=parentService.deleteStudent(StudentID);
+    @DeleteMapping("{parentID}")
+    public ResponseEntity<BaseResponse<Boolean>> deleteStudent(@PathVariable Integer parentID){
+        Optional<ParentDetails> Student1=parentService.deleteStudent(parentID);
         BaseResponse<Boolean> response;
         if (Student1.isPresent()) {
             response = new BaseResponse<>(

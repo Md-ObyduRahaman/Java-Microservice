@@ -1,8 +1,10 @@
 package com.studentManagementSystem.controller;
 
 import com.studentManagementSystem.entity.BaseResponse;
+import com.studentManagementSystem.entity.ParentDetails;
 import com.studentManagementSystem.entity.Student;
 import com.studentManagementSystem.exception.ResourceNotFoundException;
+import com.studentManagementSystem.service.ParentDetailsService;
 import com.studentManagementSystem.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,9 @@ public class StudentRegistration {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    ParentDetailsService parentDetailsService;
 
     @GetMapping("/allStudents")
     public ResponseEntity<BaseResponse<List<Student>>> getStudentDetails(){
@@ -76,6 +81,24 @@ public class StudentRegistration {
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
 
+    }
+
+    @GetMapping("guardian/{studentId}")
+    public ResponseEntity<BaseResponse<Optional<Student>>> getStudentParentDetails(@PathVariable Integer studentId){
+        BaseResponse<Optional<Student>> response;
+        Optional<Student> student = studentService.getStudentById(studentId);
+
+
+
+        if (student.isPresent()) {
+            Optional<ParentDetails> parentDetails = parentDetailsService.getParentById(studentId);
+            parentDetails.ifPresent(details -> student.get().setParentDetails(details));
+            response = new BaseResponse<>(
+                    "Student found successfully", student, HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else {
+            throw new ResourceNotFoundException("Student not found" );
+        }
     }
 
 

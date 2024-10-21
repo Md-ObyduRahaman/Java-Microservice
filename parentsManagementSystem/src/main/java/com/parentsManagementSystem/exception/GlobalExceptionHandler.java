@@ -27,6 +27,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<BaseResponse<Void>> handleGlobalException(Exception ex, WebRequest request) {
 
+        ex.printStackTrace();
 
         // Create BaseResponse for error response
         BaseResponse<Void> response = new BaseResponse<>(

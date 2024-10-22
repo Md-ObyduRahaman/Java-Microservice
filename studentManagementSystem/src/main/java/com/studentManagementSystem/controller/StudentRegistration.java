@@ -87,9 +87,6 @@ public class StudentRegistration {
     public ResponseEntity<BaseResponse<Optional<Student>>> getStudentParentDetails(@PathVariable Integer studentId){
         BaseResponse<Optional<Student>> response;
         Optional<Student> student = studentService.getStudentById(studentId);
-
-
-
         if (student.isPresent()) {
             Optional<ParentDetails> parentDetails = parentDetailsService.getParentById(studentId);
             parentDetails.ifPresent(details -> student.get().setParentDetails(details));

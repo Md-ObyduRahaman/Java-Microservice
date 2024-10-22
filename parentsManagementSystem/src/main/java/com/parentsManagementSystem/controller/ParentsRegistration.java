@@ -37,7 +37,7 @@ public class ParentsRegistration {
     }
 
     @GetMapping("{parentId}")
-    public ResponseEntity<BaseResponse<Optional<ParentDetails>>> getStudentDetails(@PathVariable Integer parentId){
+    public ResponseEntity<BaseResponse<Optional<ParentDetails>>> getParentDetails(@PathVariable Integer parentId){
         BaseResponse<Optional<ParentDetails>> response;
         Optional<ParentDetails> Student = parentService.getStudentById(parentId);
         if (Student.isPresent()) {

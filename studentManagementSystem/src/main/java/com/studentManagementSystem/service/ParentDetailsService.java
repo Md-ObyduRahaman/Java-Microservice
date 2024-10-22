@@ -20,11 +20,15 @@ public class ParentDetailsService {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    ParentService parentService;
     public Optional<ParentDetails> getParentById(Integer id) {
         String response;
         try {
              //response = restTemplate.getForObject("http://localhost:8083/Parent/" + id, String.class);
-             response = restTemplate.getForObject("http://PARENT-MANAGEMENT-SYSTEM/Parent/" + id, String.class);
+             //response = restTemplate.getForObject("http://PARENT-MANAGEMENT-SYSTEM/Parent/" + id, String.class);
+
+             response = new ObjectMapper().writeValueAsString(parentService.getParentDetails(id));
         }
         catch (Exception e){
             throw new ResourceNotFoundException("Parents data not found of this student");

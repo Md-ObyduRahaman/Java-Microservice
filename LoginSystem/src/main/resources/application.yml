@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: LoginSystem
+    name: Login-System
 
   main:
     allow-circular-references: true
@@ -24,3 +24,10 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.MySQLDialect
         show_sql: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true

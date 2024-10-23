@@ -13,6 +13,7 @@ public class ParentDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true)
     private Long id;
 
     private String fatherName;
@@ -20,6 +21,9 @@ public class ParentDetails {
     private String phoneNumber;
     private String email;
     private String address;
+
+
+    @Column(unique = true)
     private Integer studentId;
 
 

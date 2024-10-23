@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "dcf955d8-9dde-4170-b09a-f7609b1d5635",
+		"_postman_id": "4e0ec0e1-1497-4b0e-bd71-1aeca2384d2d",
 		"name": "parent",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12044018"
 	},
 	"item": [
 		{
@@ -89,6 +90,27 @@
 					"path": [
 						"Parent",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "guardianByStudentId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8083/Parent/guardian/10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"Parent",
+						"guardian",
+						"10"
 					]
 				}
 			},

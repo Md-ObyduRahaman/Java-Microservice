@@ -97,11 +97,23 @@
 		},
 		{
 			"name": "GurdianById",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8082/student/guardian/2",
+					"raw": "http://localhost:8082/student/guardian/10",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -110,7 +122,37 @@
 					"path": [
 						"student",
 						"guardian",
-						"2"
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addGuardian",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\": 1,\r\n        \"fatherName\": \"md\",\r\n        \"motherName\": \"Akter\",\r\n        \"phoneNumber\": \"017844654\",\r\n        \"email\": \"S@gmail.com\",\r\n        \"address\": \"45/A\",\r\n        \"studentId\": 4\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/student/guardian/10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"student",
+						"guardian",
+						"10"
 					]
 				}
 			},

@@ -98,6 +98,19 @@ public class StudentRegistration {
         }
     }
 
+    @PostMapping("/addParent")
+    public ResponseEntity<BaseResponse<ParentDetails>> addParent(@RequestBody ParentDetails Parent){
+        BaseResponse<ParentDetails> response;
+        Optional<ParentDetails> Parent1=parentDetailsService.addParent(Parent);
 
+        if (Parent1.isPresent()) {
+            response = new BaseResponse<>(
+                    "Parent saved successfully", Parent, HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        else {
+            throw new ResourceNotFoundException("Parent not saved" );
+        }
+    }
 
 }

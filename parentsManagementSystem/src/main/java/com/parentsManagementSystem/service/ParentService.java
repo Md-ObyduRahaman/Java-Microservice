@@ -17,28 +17,32 @@ public class ParentService {
 
 
 
-    public Optional<List<ParentDetails>> getAllStudents() {
-        List<ParentDetails> Students = parentRepository.findAll();
-        return Students.isEmpty() ? Optional.empty() : Optional.of(Students);
+    public Optional<List<ParentDetails>> getAllParents() {
+        List<ParentDetails> Parents = parentRepository.findAll();
+        return Parents.isEmpty() ? Optional.empty() : Optional.of(Parents);
     }
 
-    public Optional<ParentDetails> getStudentById(int id) {
+    public Optional<ParentDetails> getParentById(int id) {
         return parentRepository.findById(id);
     }
 
-    public Optional<ParentDetails> addStudent(ParentDetails Student) {
-        parentRepository.save(Student);
-        return Optional.of(Student);
+    public Optional<ParentDetails> getParentByStudentId(int id) {
+        return parentRepository.findByStudentId(id);
     }
 
-    public Optional<ParentDetails> updateStudent(ParentDetails Student) {
-        parentRepository.save(Student);
-        return Optional.of(Student);
+    public Optional<ParentDetails> addParent(ParentDetails Parent) {
+        parentRepository.save(Parent);
+        return Optional.of(Parent);
     }
-    public Optional<ParentDetails> deleteStudent(Integer StudentId) {
-        Optional<ParentDetails> Student = parentRepository.findById(StudentId);
-        Student.ifPresent(parentRepository::delete); // Delete if Student is present
-        return Student; // Return the Student if found, or Optional.empty() if not found
+
+    public Optional<ParentDetails> updateParent(ParentDetails Parent) {
+        parentRepository.save(Parent);
+        return Optional.of(Parent);
+    }
+    public Optional<ParentDetails> deleteParent(Integer ParentId) {
+        Optional<ParentDetails> Parent = parentRepository.findById(ParentId);
+        Parent.ifPresent(parentRepository::delete); // Delete if Parent is present
+        return Parent; // Return the Parent if found, or Optional.empty() if not found
     }
 
 }

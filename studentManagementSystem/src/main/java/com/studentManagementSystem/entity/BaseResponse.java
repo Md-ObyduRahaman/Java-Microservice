@@ -14,14 +14,12 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BaseResponse<T> {
-    //@JsonSerialize(using = LocalTimeSerializer.class)
-    //@JsonDeserialize(using = LocalTimeDeserializer.class)
+
     private Date timestamp;
     private String message;
     private T data;
-    //@JsonIgnore
     private HttpStatus statusCode;
-    private String path; // New field for tracking request path
+    private String path;
 
     // Constructor with path
     public BaseResponse(String message, T data, HttpStatus statusCode, String path) {

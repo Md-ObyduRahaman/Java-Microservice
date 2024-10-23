@@ -1,6 +1,7 @@
 package com.studentManagementSystem.service;
 
 
+import com.studentManagementSystem.entity.ApiBaseResponse;
 import com.studentManagementSystem.entity.BaseResponse;
 import com.studentManagementSystem.entity.ParentDetails;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -12,7 +13,7 @@ import java.util.Optional;
 
 @FeignClient(name = "PARENT-MANAGEMENT-SYSTEM")
 public interface ParentService {
-    @GetMapping("/Parent/{parentID}")
-   // public BaseResponse<Optional<ParentDetails>> getParentDetails(@PathVariable("parentID") Integer parentID);
-    public Object getParentByIds(@PathVariable("parentID") Integer parentID);
+    @GetMapping("/Parent/guardian/{parentID}")
+      public ApiBaseResponse<ParentDetails> getParentDetails(@PathVariable("parentID") Integer parentID);
+   // public Object getParentDetails(@PathVariable("parentID") Integer parentID);
 }

@@ -20,8 +20,6 @@ public class ParentDetails {
     private String phoneNumber;
     private String email;
     private String address;
-
-    @Transient
     private Integer studentId;
 
 

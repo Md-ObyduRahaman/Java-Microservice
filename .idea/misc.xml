@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/studentManagementSystem/pom.xml" />
         <option value="$PROJECT_DIR$/parentsManagementSystem/pom.xml" />
         <option value="$PROJECT_DIR$/EurekaServerApplication/pom.xml" />
+        <option value="$PROJECT_DIR$/ApiGateway/pom.xml" />
       </list>
     </option>
   </component>

@@ -3,12 +3,11 @@ package com.parentsManagementSystem.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 
 @Entity
 @Table(name = "parent_details")
-@NoArgsConstructor
 @Data
 public class ParentDetails {
 
@@ -21,7 +20,6 @@ public class ParentDetails {
     private String phoneNumber;
     private String email;
     private String address;
-
     private Integer studentId;
 
 

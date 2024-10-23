@@ -30,7 +30,7 @@ public class ParentDetailsService {
 
         }
 
-        Map<String, Object> map = null;
+        Map map = null;
         try {
             map = objectMapper.readValue(response, Map.class);
         } catch (JsonProcessingException e) {
@@ -50,7 +50,7 @@ public class ParentDetailsService {
         }
 
 
-        Map<String, Object> map = null;
+        Map map = null;
         try {
             map = objectMapper.readValue(response, Map.class);
         } catch (JsonProcessingException e) {

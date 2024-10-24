@@ -8,10 +8,12 @@
         <option value="$PROJECT_DIR$/studentManagementSystem/pom.xml" />
         <option value="$PROJECT_DIR$/parentsManagementSystem/pom.xml" />
         <option value="$PROJECT_DIR$/EurekaServerApplication/pom.xml" />
+        <option value="$PROJECT_DIR$/ApiGateway/pom.xml" />
+        <option value="$PROJECT_DIR$/ConfigServer/pom.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="17" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

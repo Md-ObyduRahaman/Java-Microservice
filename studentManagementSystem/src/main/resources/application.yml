@@ -16,18 +16,39 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.MySQLDialect
-
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
-  instance:
-    preferIpAddress: true
-
-
+  config:
+    import: optional:configserver:http://localhost:800
   jackson:
     default-property-inclusion: non_absent
+
+#actuator configuration
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+
+#Circuitbreaker Configuration
+resilience4j:
+  circuitbreaker:
+    instances:
+      parentDetailsBreaker:
+        register-health-indicator: true
+        event-consumer-buffer-size: 10
+        failure-rate-threshold: 50
+        minimum-number-of-calls: 5
+        automatic-transition-from-open-to-half-open-enabled: true
+        wait-duration-in-open-state:
+          seconds: 6
+        permitted-number-of-calls-in-half-open-state: 3
+        sliding-window-size: 10
+        sliding-window-type: count_based
 
 
 

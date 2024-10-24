@@ -17,3 +17,10 @@ spring:
           predicates:
             - Path= /Parent/**
 
+        - id: CONFIG-SERVER
+          uri: lb://CONFIG-SERVER
+          predicates:
+            - Path= /application/**
+  config:
+    import: optional:configserver:http://localhost:8000
+

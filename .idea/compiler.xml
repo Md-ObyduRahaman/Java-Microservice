@@ -7,9 +7,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="parentsManagementSystem" />
         <module name="LoginSystem" />
         <module name="studentManagementSystem" />
-        <module name="parentsManagementSystem" />
+        <module name="ConfigServer" />
         <module name="StudentManagementSystem" />
         <module name="ApiGateway" />
         <module name="EurekaServerApplication" />
@@ -19,7 +20,8 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ApiGateway" options="-parameters" />
-      <module name="EurekaServerApplication" options="" />
+      <module name="ConfigServer" options="-parameters" />
+      <module name="EurekaServerApplication" options="-parameters" />
       <module name="LoginSystem" options="-parameters" />
       <module name="StudentManagementSystem" options="-parameters" />
       <module name="parentsManagementSystem" options="-parameters" />

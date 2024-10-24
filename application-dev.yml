@@ -1,6 +1,4 @@
-spring:
-  application:
-    name: Student-Management-System-dev
+
 eureka:
   client:
     serviceUrl:

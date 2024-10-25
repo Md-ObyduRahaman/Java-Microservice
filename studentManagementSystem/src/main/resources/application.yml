@@ -50,5 +50,11 @@ resilience4j:
         sliding-window-size: 10
         sliding-window-type: count_based
 
+  #Retry Process
+  retry:
+    instances:
+      parentDetailsService:
+        max-attempts: 3
+        wait-duration: 3s
 
 

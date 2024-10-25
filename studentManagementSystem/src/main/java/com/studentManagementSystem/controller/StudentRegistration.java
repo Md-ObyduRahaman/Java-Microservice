@@ -7,6 +7,7 @@ import com.studentManagementSystem.exception.ResourceNotFoundException;
 import com.studentManagementSystem.service.ParentDetailsService;
 import com.studentManagementSystem.service.StudentService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -85,7 +86,8 @@ public class StudentRegistration {
     }
 
     @GetMapping("guardian/{studentId}")
-    @CircuitBreaker(name = "parentDetailsBreaker" , fallbackMethod = "parentDetailsFallback")
+    //@CircuitBreaker(name = "parentDetailsBreaker" , fallbackMethod = "parentDetailsFallback")
+    @Retry(name = "parentDetailsService", fallbackMethod = "parentDetailsFallback")
     public ResponseEntity<BaseResponse<Optional<Student>>> getStudentParentDetails(@PathVariable Integer studentId){
         BaseResponse<Optional<Student>> response;
         Optional<Student> student = studentService.getStudentById(studentId);
@@ -100,8 +102,11 @@ public class StudentRegistration {
         }
     }
 
+    int count=0;
+
     public ResponseEntity<BaseResponse<Optional<Student>>> parentDetailsFallback(Integer studentId, Throwable throwable) {
         BaseResponse<Optional<Student>> response;
+        System.out.println("Retry Number: "+count++);
 
         // Fetch the student even if parentDetailsService fails
         Optional<Student> student = studentService.getStudentById(studentId);

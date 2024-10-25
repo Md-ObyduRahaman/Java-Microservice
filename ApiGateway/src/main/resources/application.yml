@@ -12,6 +12,7 @@ spring:
           predicates:
             - Path=/student/**
 
+
         - id: PARENT-MANAGEMENT-SYSTEM
           uri: lb://PARENT-MANAGEMENT-SYSTEM
           predicates:

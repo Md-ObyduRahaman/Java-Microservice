@@ -1,6 +1,6 @@
 package com.apiGateway.ApiGateway.controller;
 
-import com.apiGateway.ApiGateway.entity.BaseResponse;
+import com.apiGateway.ApiGateway.entity. ;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +14,9 @@ import java.util.Date;
 public class FallbackController {
 
     @GetMapping
-    public ResponseEntity<BaseResponse<Void>> studentManagementFallback() {
+    public ResponseEntity< <Void>> studentManagementFallback() {
         // Creating a custom response when the student management service is unavailable
-        BaseResponse<Void> response = new BaseResponse<>(
+         <Void> response = new  <>(
                 new Date(),
                 "Student Management Service is currently unavailable. Please try again later.",
                 null,

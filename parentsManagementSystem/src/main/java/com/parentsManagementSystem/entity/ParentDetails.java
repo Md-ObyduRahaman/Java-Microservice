@@ -9,7 +9,7 @@ import lombok.Data;
 @Entity
 @Table(name = "parent_details")
 @Data
-public class ParentDetails {
+public class ParentDetails extends  BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

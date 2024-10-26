@@ -10,7 +10,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApiBaseResponse<T> {
+public class ApiBaseResponse <T> {
     private String timestamp;
     private String message;
     private T data;
@@ -18,7 +18,7 @@ public class ApiBaseResponse<T> {
     private String path; // New field for tracking request path
 
     // Constructor with path
-    public ApiBaseResponse(String message, T data, Integer statusCode, String path) {
+    public ApiBaseResponse (String message, T data, Integer statusCode, String path) {
         this.timestamp = String.valueOf(new Date()); // Automatically set timestamp
         this.message = message;
         this.data = data;

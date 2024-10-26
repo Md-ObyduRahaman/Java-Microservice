@@ -1,6 +1,6 @@
 package com.studentManagementSystem.controller;
 
-import com.studentManagementSystem.entity.BaseResponse;
+
 import com.studentManagementSystem.entity.ParentDetails;
 import com.studentManagementSystem.entity.Student;
 import com.studentManagementSystem.exception.ResourceNotFoundException;
@@ -29,118 +29,61 @@ public class StudentRegistration {
     ParentDetailsService parentDetailsService;
 
     @GetMapping("/allStudents")
-    public ResponseEntity<BaseResponse<List<Student>>> getStudentDetails(){
-        BaseResponse<List<Student>> response;
+    public ResponseEntity<List<Student>> getStudentDetails(){
+         List<Student> response;
         Optional<List<Student>> students = studentService.getAllStudents();
-        if (students.isPresent()) {
-            List<Student> studentList = students.get();
-            response = new BaseResponse<>(
-                    "Resource found successfully", studentList, HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } else {
-            throw new ResourceNotFoundException("Resource not found" );
-        }
+       return null;
     }
 
     @GetMapping("{studentId}")
-    public ResponseEntity<BaseResponse<Optional<Student>>> getStudentDetails(@PathVariable Integer studentId){
-        BaseResponse<Optional<Student>> response;
+    public ResponseEntity< Optional<Student>> getStudentDetails(@PathVariable Integer studentId){
+         Optional<Student> response;
         Optional<Student> student = studentService.getStudentById(studentId);
-        if (student.isPresent()) {
-            response = new BaseResponse<>(
-                    "Resource found successfully", student, HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        }else {
-            throw new ResourceNotFoundException("Resource not found" );
-        }
+        return null;
     }
 
     @PostMapping("addStudent")
-    public ResponseEntity<BaseResponse<Student>> addStudent(@RequestBody Student student){
-        BaseResponse<Student> response;
+    public ResponseEntity<Student> addStudent(@RequestBody Student student){
+         Student response;
         Optional<Student> student1=studentService.addStudent(student);
 
-        if (student1.isPresent()) {
-            response = new BaseResponse<>(
-                    "Student saved successfully", student, HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        }
-        else {
-            throw new ResourceNotFoundException("Student not saved" );
-        }
+        return null;
     }
     @DeleteMapping("{studentID}")
-    public ResponseEntity<BaseResponse<Boolean>> deleteStudent(@PathVariable Integer studentID){
+    public ResponseEntity<Boolean> deleteStudent(@PathVariable Integer studentID){
         Optional<Student> student1=studentService.deleteStudent(studentID);
-        BaseResponse<Boolean> response;
-        if (student1.isPresent()) {
-            response = new BaseResponse<>(
-                    "Student Deleted successfully", true, HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
-            return new ResponseEntity<>(response, HttpStatus.OK);}
-        else {
-            response = new BaseResponse<>(
-                    "Student not found", false, HttpStatus.NOT_FOUND, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
-            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-        }
+         Boolean response;
+        return null;
 
     }
 
     @GetMapping("guardian/{studentId}")
     //@CircuitBreaker(name = "parentDetailsBreaker" , fallbackMethod = "parentDetailsFallback")
     @Retry(name = "parentDetailsService", fallbackMethod = "parentDetailsFallback")
-    public ResponseEntity<BaseResponse<Optional<Student>>> getStudentParentDetails(@PathVariable Integer studentId){
-        BaseResponse<Optional<Student>> response;
+    public ResponseEntity< Optional<Student>> getStudentParentDetails(@PathVariable Integer studentId){
+         Optional<Student> response;
         Optional<Student> student = studentService.getStudentById(studentId);
-        if (student.isPresent()) {
-            Optional<ParentDetails> parentDetails = parentDetailsService.getParentById(studentId);
-            parentDetails.ifPresent(details -> student.get().setParentDetails(details));
-            response = new BaseResponse<>(
-                    "Student found successfully", student, HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } else {
-            throw new ResourceNotFoundException("Student not found" );
-        }
+        return null;
     }
 
-    int count=0;
 
-    public ResponseEntity<BaseResponse<Optional<Student>>> parentDetailsFallback(Integer studentId, Throwable throwable) {
-        BaseResponse<Optional<Student>> response;
-        System.out.println("Retry Number: "+count++);
-
+    public ResponseEntity< Optional<Student>> parentDetailsFallback(Integer studentId, Throwable throwable) {
+         Optional<Student> response;
         // Fetch the student even if parentDetailsService fails
         Optional<Student> student = studentService.getStudentById(studentId);
         student.get().setParentDetails(null);
 
-        if (student.isPresent()) {
-            // Create a message indicating that the student was found, but parent details couldn't be retrieved
-            response = new BaseResponse<>(
-                    "Student found, but parent details are unavailable at the moment. Cause: " + throwable.getMessage(),
-                    student,
-                    HttpStatus.OK,
-                    ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString()
-            );
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } else {
-            // In case student itself is not found, still throw the ResourceNotFoundException
-            throw new ResourceNotFoundException("Student not found");
-        }
+        return null;
     }
 
 
     @PostMapping("/addParent")
-    public ResponseEntity<BaseResponse<ParentDetails>> addParent(@RequestBody ParentDetails Parent){
-        BaseResponse<ParentDetails> response;
+    public ResponseEntity< ParentDetails> addParent(@RequestBody ParentDetails Parent){
+         ParentDetails response;
         Optional<ParentDetails> Parent1=parentDetailsService.addParent(Parent);
 
-        if (Parent1.isPresent()) {
-            response = new BaseResponse<>(
-                    "Parent saved successfully", Parent, HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        }
-        else {
-            throw new ResourceNotFoundException("Parent not saved" );
-        }
+        return null;
+
     }
 
 }

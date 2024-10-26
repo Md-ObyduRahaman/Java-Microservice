@@ -1,8 +1,6 @@
-package com.apiGateway.ApiGateway.exception;
+package com.studentManagementSystem.exception;
 
-
-
-import com.apiGateway.ApiGateway.entity. ;
+import com.studentManagementSystem.entity. ;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,6 +10,18 @@ import org.springframework.web.context.request.WebRequest;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity< <Void>> resourceNotFoundException(ResourceNotFoundException ex, WebRequest request)
+    {
+        // Create   for error response
+         <Void> response = new  <>(
+                ex.getMessage(),
+                null,
+                HttpStatus.NOT_FOUND,
+                request.getDescription(false)
+        );
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity< <Void>> handleGlobalException(Exception ex, WebRequest request) {

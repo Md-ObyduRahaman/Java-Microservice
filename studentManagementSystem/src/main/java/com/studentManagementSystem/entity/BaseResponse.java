@@ -13,7 +13,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BaseResponse<T> {
+public class BaseResponse  <T> {
 
     private Date timestamp;
     private String message;
@@ -22,7 +22,7 @@ public class BaseResponse<T> {
     private String path;
 
     // Constructor with path
-    public BaseResponse(String message, T data, HttpStatus statusCode, String path) {
+    public  BaseResponse(String message, T data, HttpStatus statusCode, String path) {
         this.timestamp = new Date(); // Automatically set timestamp
         this.message = message;
         this.data = data;

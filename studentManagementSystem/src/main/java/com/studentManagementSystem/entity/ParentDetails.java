@@ -12,7 +12,6 @@ public class ParentDetails {
     private String phoneNumber;
     private String email;
     private String address;
-
     private Integer studentId;
 
 

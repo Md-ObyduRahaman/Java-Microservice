@@ -1,7 +1,11 @@
 package com.parentsManagementSystem.entity;
 
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 
@@ -17,9 +21,15 @@ public class ParentDetails extends  BaseEntity {
     private Long id;
 
     private String fatherName;
+
+
     private String motherName;
+
+
     private String phoneNumber;
+
     private String email;
+
     private String address;
 
 

@@ -8,6 +8,7 @@ import com.parentsManagementSystem.exception.ResourceNotFoundException;
 import com.parentsManagementSystem.mapper.MapperParentDetailsMapper;
 import com.parentsManagementSystem.repository.ParentRepository;
 import com.parentsManagementSystem.service.ParentServiceInterface;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class ParentServiceimpl implements ParentServiceInterface {
     public List<ParentDetailsDto> getAllParents() {
         List<ParentDetails> parents = parentRepository.findAll();
         if (parents.isEmpty()) {
-            throw new ResourceNotFoundException("Account", "AccountNumber","null");
+            throw new ResourceNotFoundException("Parents", "forAllParents","all");
         }
         List<ParentDetailsDto> parentsDto = new ArrayList<>();
         for (ParentDetails parent : parents) {
@@ -40,7 +41,7 @@ public class ParentServiceimpl implements ParentServiceInterface {
         if (parent.isPresent()) {
             return Optional.of(MapperParentDetailsMapper.mapToParentDetailsDto(parent.get(), new ParentDetailsDto()));
         } else {
-            throw new ResourceNotFoundException("Account", "AccountNumber",parent.get().getStudentId().toString());
+            throw new ResourceNotFoundException("parent", "parentId",parent.get().getStudentId().toString());
         }
     }
 
@@ -49,12 +50,12 @@ public class ParentServiceimpl implements ParentServiceInterface {
         if (parent.isPresent()) {
             return Optional.of(MapperParentDetailsMapper.mapToParentDetailsDto(parent.get(), new ParentDetailsDto()));
         } else {
-            throw new ResourceNotFoundException("Account", "AccountNumber",parent.get().getStudentId().toString());
+            throw new ResourceNotFoundException("parent", "parentId",parent.get().getStudentId().toString());
         }
     }
 
     @Override
-    public void addParent(ParentDetailsDto parentDetailsDto) {
+    public void addParent( ParentDetailsDto parentDetailsDto) {
         Optional<ParentDetails> optionalParent = parentRepository.findByStudentId(parentDetailsDto.getStudentId());
         if (optionalParent.isPresent()) {
             throw new CustomerAlreadyExistsException("Parent Already Exists with Student Id: "
@@ -64,19 +65,26 @@ public class ParentServiceimpl implements ParentServiceInterface {
     }
 
     @Override
-    public Optional<ParentDetailsDto> updateParent(ParentDetails parentDetails) {
-        Optional<ParentDetailsDto> parent = Optional.of(MapperParentDetailsMapper.mapToParentDetailsDto(parentRepository.save(parentDetails), new ParentDetailsDto()));
+    public boolean updateParent(ParentDetailsDto parentDetailsDto) {
+        boolean isUpdate=false;
+        Optional<ParentDetails> parent = parentRepository.findById(parentDetailsDto.getStudentId());
         if (parent.isPresent()) {
-            return parent;
+            parentRepository.save(MapperParentDetailsMapper.mapToParentDetails(parentDetailsDto, parent.get()));
+            isUpdate=true;
+            return isUpdate;
         } else {
-            throw new ResourceNotFoundException("Account", "AccountNumber",parent.get().getStudentId().toString());
+            throw new ResourceNotFoundException("parent", "parentId",parentDetailsDto.getStudentId().toString());
         }
     }
 
-
-    public void deleteByParentId(Integer ParentId) {
-        parentRepository.deleteById(ParentId);
-
+    public boolean deleteByParentId(Integer ParentId) {
+        Optional<ParentDetails> parent = parentRepository.findById(ParentId);
+        if (parent.isPresent()) {
+            parentRepository.deleteById(ParentId);
+            return true;
+        } else {
+            throw new ResourceNotFoundException("parent", "parentId",parent.get().getStudentId().toString());
+        }
     }
 
 

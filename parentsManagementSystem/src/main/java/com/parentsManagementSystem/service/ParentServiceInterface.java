@@ -16,8 +16,8 @@ Optional<ParentDetailsDto> getParentByStudentId(int id);
 
 void addParent(ParentDetailsDto parentDetailsDto);
 
-Optional<ParentDetailsDto> updateParent(ParentDetails parentDetails);
+boolean updateParent(ParentDetailsDto parentDetailsDto);
 
-void deleteByParentId(Integer parentId);
+boolean deleteByParentId(Integer parentId);
 
 }

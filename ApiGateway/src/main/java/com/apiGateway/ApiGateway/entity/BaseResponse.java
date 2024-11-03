@@ -10,7 +10,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class  <T> {
+public class BaseResponse<T> {
 
     private Date timestamp;
     private String message;
@@ -19,7 +19,7 @@ public class  <T> {
     private String path;
 
     // Constructor with path
-    public  (String message, T data, HttpStatus statusCode, String path) {
+    public BaseResponse(String message, T data, HttpStatus statusCode, String path) {
         this.timestamp = new Date(); // Automatically set timestamp
         this.message = message;
         this.data = data;
@@ -32,4 +32,3 @@ public class  <T> {
         return statusCode.value();
     }
 }
-

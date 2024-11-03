@@ -78,6 +78,12 @@
             <groupId>io.github.resilience4j</groupId>
             <artifactId>resilience4j-annotations</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations-jakarta</artifactId>
+            <version>2.2.22</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 	<dependencyManagement>

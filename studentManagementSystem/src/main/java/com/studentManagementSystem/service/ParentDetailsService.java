@@ -2,7 +2,8 @@ package com.studentManagementSystem.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.studentManagementSystem.entity.ParentDetails;
+import com.studentManagementSystem.dto.ParentDetailsDto;
+
 import com.studentManagementSystem.exception.GlobalExceptionHandler;
 import com.studentManagementSystem.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class ParentDetailsService {
 
     @Autowired
     ParentService parentService;
-    public Optional<ParentDetails> getParentById(Integer id) {
+    public Optional<ParentDetailsDto> getParentById(Integer id) {
         String response;
         try {
              response = new ObjectMapper().writeValueAsString(parentService.getParentDetails(id));
@@ -36,11 +37,11 @@ public class ParentDetailsService {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        ParentDetails parentDetails = objectMapper.convertValue(map.get("data"), ParentDetails.class);
-        return Optional.ofNullable(parentDetails);
+        ParentDetailsDto parentDetailsDto = objectMapper.convertValue(map.get("data"), ParentDetailsDto.class);
+        return Optional.ofNullable(parentDetailsDto);
 
     }
-    public Optional<ParentDetails> addParent(ParentDetails parentDetails) {
+    public Optional<ParentDetailsDto> addParent(ParentDetailsDto parentDetails) {
         String response;
         try {
              response = new ObjectMapper().writeValueAsString(parentService.addParent(parentDetails));
@@ -56,8 +57,8 @@ public class ParentDetailsService {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        ParentDetails addParentDetails = objectMapper.convertValue(map.get("data"), ParentDetails.class);
-        return Optional.ofNullable(addParentDetails);
+        ParentDetailsDto addParentDetailsDto = objectMapper.convertValue(map.get("data"), ParentDetailsDto.class);
+        return Optional.ofNullable(addParentDetailsDto);
 
     }
 }

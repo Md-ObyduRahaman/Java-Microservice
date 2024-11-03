@@ -1,6 +1,7 @@
 package com.studentManagementSystem.entity;
 
 
+import com.studentManagementSystem.dto.ParentDetailsDto;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -37,7 +38,7 @@ public class Student {
     private String gender;
 
     @Transient
-    private ParentDetails parentDetails;
+    private ParentDetailsDto parentDetails;
 
     // Constructors
     public Student() {

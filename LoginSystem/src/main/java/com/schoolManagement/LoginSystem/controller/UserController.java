@@ -3,7 +3,7 @@ package com.schoolManagement.LoginSystem.controller;
 
 import com.schoolManagement.LoginSystem.entity.AuthRequest;
 import com.schoolManagement.LoginSystem.entity.UserInfo;
-import com.schoolManagement.LoginSystem.exception. ;
+import com.schoolManagement.LoginSystem.exception.BaseResponse;
 import com.schoolManagement.LoginSystem.exception.ResourceNotFoundException;
 import com.schoolManagement.LoginSystem.service.JwtService;
 import com.schoolManagement.LoginSystem.service.UserInfoDetails;
@@ -44,15 +44,15 @@ public class UserController {
     }
 
     @PostMapping("/addNewUser")
-    public ResponseEntity< <String>> addNewUser(@RequestBody UserInfo userInfo) {
-         <String> response;
+    public ResponseEntity<BaseResponse<String>> addNewUser(@RequestBody UserInfo userInfo) {
+        BaseResponse<String> response;
         if(service.addUser(userInfo).getEmail().isEmpty()){
-            response = new  <>(
+            response = new BaseResponse<>(
                     "User not found", null, HttpStatus.BAD_GATEWAY, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
             return new ResponseEntity<>(response,HttpStatus.BAD_GATEWAY);
         }
         else {
-            response = new  <>(
+            response = new BaseResponse<>(
                     "User Added Successfully", null, HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
             return new ResponseEntity<>(response,HttpStatus.OK);
         }
@@ -60,19 +60,19 @@ public class UserController {
 
     @GetMapping("/user/userProfile")
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    public ResponseEntity< <UserInfo>> userProfile() {
+    public ResponseEntity<BaseResponse<UserInfo>> userProfile() {
 
 
         ssInfo.setId(12);
         ssInfo.setEmail("sojib@gmail.com");
         ssInfo.setName("Sojib");
-                 <UserInfo> response;
+        BaseResponse<UserInfo> response;
         if (false) {
-            response = new  <>(
+            response = new BaseResponse<>(
                     "User not found", null, HttpStatus.BAD_GATEWAY, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
             return new ResponseEntity<>(response,HttpStatus.BAD_GATEWAY);
         } else {
-            response = new  <>(
+            response = new BaseResponse<>(
                     "User found successfully", ssInfo, HttpStatus.OK, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
             return new ResponseEntity<>(response, HttpStatus.OK);
         }

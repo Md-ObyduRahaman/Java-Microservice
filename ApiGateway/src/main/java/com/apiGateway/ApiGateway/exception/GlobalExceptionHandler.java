@@ -2,7 +2,7 @@ package com.apiGateway.ApiGateway.exception;
 
 
 
-import com.apiGateway.ApiGateway.entity. ;
+import com.apiGateway.ApiGateway.entity.BaseResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,12 +14,12 @@ public class GlobalExceptionHandler {
 
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity< <Void>> handleGlobalException(Exception ex, WebRequest request) {
+    public ResponseEntity<BaseResponse<Void>> handleGlobalException(Exception ex, WebRequest request) {
 
         ex.printStackTrace();
 
-        // Create   for error response
-         <Void> response = new  <>(
+        // Create BaseResponse for error response
+        BaseResponse<Void> response = new BaseResponse<>(
                 ex.getMessage(),
                 null,
                 HttpStatus.INTERNAL_SERVER_ERROR,

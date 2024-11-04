@@ -2,6 +2,7 @@ package com.studentManagementSystem.service.impl;
 
 import com.studentManagementSystem.dto.StudentDto;
 import com.studentManagementSystem.entity.Student;
+import com.studentManagementSystem.exception.CustomerAlreadyExistsException;
 import com.studentManagementSystem.exception.ResourceNotFoundException;
 import com.studentManagementSystem.exception.StudentAlreadyExistsException;
 import com.studentManagementSystem.exception.StudentSaveFailedException;
@@ -66,23 +67,22 @@ public class StudentService implements IStudentService {
         studentRepository.save(student);
         return Optional.of(student);
     }
-    public Optional<Student> deleteStudent(Integer studentId) {
-        // Find the student by ID
-        Optional<Student> student = studentRepository.findById(studentId);
+    public boolean deleteStudent(Integer studentId) {
 
-        //StudentMapper::toDto(student);
-        // Check if the student exists and delete if present
-        student.ifPresentOrElse(
-                studentRepository::delete,
-                () -> {
-                    throw new ResourceNotFoundException("Student with ID '" + studentId + "' does not exist.");
-                }
-        );
-
-
-        // Return the student if found and deleted, or Optional.empty() if not found
-        return student;
+        Optional<Student> optionalParent = studentRepository.findById(studentId);
+        boolean isDeleted = false;
+        if (optionalParent.isPresent()) {
+             isDeleted = studentRepository.existsById(studentId);
+        }
+        if (isDeleted) {
+            studentRepository.deleteById(studentId);
+            return true;
+        } else {
+            throw new ResourceNotFoundException("Student with ID '" + studentId + "' does not exist.");
+        }
     }
+
+
 
 
 }

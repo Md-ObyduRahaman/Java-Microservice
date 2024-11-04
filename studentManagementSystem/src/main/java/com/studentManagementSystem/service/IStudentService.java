@@ -17,5 +17,5 @@ public interface IStudentService {
 
     Optional<Student> updateStudent(Student student);
 
-    Optional<Student> deleteStudent(Integer studentId);
+    boolean deleteStudent(Integer studentId);
 }

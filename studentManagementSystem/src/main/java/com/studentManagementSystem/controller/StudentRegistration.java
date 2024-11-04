@@ -2,6 +2,7 @@ package com.studentManagementSystem.controller;
 
 
 import com.parentsManagementSystem.dto.ResponseDto;
+import com.studentManagementSystem.constants.StudentMangementConstants;
 import com.studentManagementSystem.dto.ParentDetailsDto;
 import com.studentManagementSystem.dto.StudentDto;
 import com.studentManagementSystem.entity.Student;
@@ -55,10 +56,19 @@ public class StudentRegistration {
                 .body(studentDto);
     }
     @DeleteMapping("{studentID}")
-    public ResponseEntity<Boolean> deleteStudent(@PathVariable Integer studentID){
-        Optional<Student> student1=iStudentService.deleteStudent(studentID);
-         Boolean response;
-        return null;
+    public ResponseEntity<ResponseDto> deleteStudent(@PathVariable Integer studentID){
+        boolean deleteStudent = iStudentService.deleteStudent(studentID);
+        if(deleteStudent) {
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(new ResponseDto(StudentMangementConstants.STATUS_200, StudentMangementConstants.MESSAGE_200));
+        }
+        else {
+            return ResponseEntity
+                    .status(HttpStatus.EXPECTATION_FAILED)
+                    .body(new ResponseDto(StudentMangementConstants.STATUS_417, StudentMangementConstants.MESSAGE_417_DELETE));
+        }
+
 
     }
 

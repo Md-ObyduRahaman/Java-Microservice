@@ -56,7 +56,7 @@ public class StudentRegistration {
     }
     @DeleteMapping("{studentID}")
     public ResponseEntity<Boolean> deleteStudent(@PathVariable Integer studentID){
-        Optional<Student> student1=studentService.deleteStudent(studentID);
+        Optional<Student> student1=iStudentService.deleteStudent(studentID);
          Boolean response;
         return null;
 

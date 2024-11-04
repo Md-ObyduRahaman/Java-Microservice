@@ -2,6 +2,7 @@ package com.studentManagementSystem.service.impl;
 
 import com.studentManagementSystem.dto.StudentDto;
 import com.studentManagementSystem.entity.Student;
+import com.studentManagementSystem.exception.ResourceNotFoundException;
 import com.studentManagementSystem.exception.StudentAlreadyExistsException;
 import com.studentManagementSystem.exception.StudentSaveFailedException;
 import com.studentManagementSystem.mapper.StudentMapper;
@@ -26,11 +27,18 @@ public class StudentService implements IStudentService {
 
     public Optional<List<Student>> getAllStudents() {
         List<Student> students = studentRepository.findAll();
+
+        students.forEach(student -> {
+            System.out.println(student.getEmail());
+        });
+        students.forEach(Student::getEmail);
+
         return students.isEmpty() ? Optional.empty() : Optional.of(students);
     }
 
     public Optional<Student> getStudentById(int id) {
         return studentRepository.findById(id);
+
     }
 
     public StudentDto addStudent(StudentDto studentDto) {
@@ -59,9 +67,22 @@ public class StudentService implements IStudentService {
         return Optional.of(student);
     }
     public Optional<Student> deleteStudent(Integer studentId) {
+        // Find the student by ID
         Optional<Student> student = studentRepository.findById(studentId);
-        student.ifPresent(studentRepository::delete);
+
+        //StudentMapper::toDto(student);
+        // Check if the student exists and delete if present
+        student.ifPresentOrElse(
+                studentRepository::delete,
+                () -> {
+                    throw new ResourceNotFoundException("Student with ID '" + studentId + "' does not exist.");
+                }
+        );
+
+
+        // Return the student if found and deleted, or Optional.empty() if not found
         return student;
     }
+
 
 }

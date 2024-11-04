@@ -1,4 +1,4 @@
-package com.studentManagementSystem.service;
+package com.studentManagementSystem.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -6,6 +6,7 @@ import com.studentManagementSystem.dto.ParentDetailsDto;
 
 import com.studentManagementSystem.exception.GlobalExceptionHandler;
 import com.studentManagementSystem.exception.ResourceNotFoundException;
+import com.studentManagementSystem.service.ParentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

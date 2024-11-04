@@ -2,17 +2,16 @@ package com.studentManagementSystem.controller;
 
 
 import com.studentManagementSystem.dto.ParentDetailsDto;
+import com.studentManagementSystem.dto.StudentDto;
 import com.studentManagementSystem.entity.Student;
-import com.studentManagementSystem.exception.ResourceNotFoundException;
-import com.studentManagementSystem.service.ParentDetailsService;
-import com.studentManagementSystem.service.StudentService;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import com.studentManagementSystem.service.IStudentService;
+import com.studentManagementSystem.service.impl.ParentDetailsService;
+import com.studentManagementSystem.service.impl.StudentService;
 import io.github.resilience4j.retry.annotation.Retry;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +26,10 @@ public class StudentRegistration {
 
     @Autowired
     ParentDetailsService parentDetailsService;
+
+   
+   @Autowired
+    IStudentService iStudentService;
 
     @GetMapping("/allStudents")
     public ResponseEntity<List<Student>> getStudentDetails(){
@@ -43,9 +46,9 @@ public class StudentRegistration {
     }
 
     @PostMapping("addStudent")
-    public ResponseEntity<Student> addStudent(@RequestBody Student student){
+    public ResponseEntity<Student> addStudent(@Valid @RequestBody StudentDto student){
          Student response;
-        Optional<Student> student1=studentService.addStudent(student);
+        Optional<StudentDto> student1 = iStudentService.addStudent(student);
 
         return null;
     }

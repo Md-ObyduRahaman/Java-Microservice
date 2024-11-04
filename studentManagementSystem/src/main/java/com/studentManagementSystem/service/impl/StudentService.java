@@ -29,12 +29,11 @@ public class StudentService implements IStudentService {
     public Optional<List<Student>> getAllStudents() {
         List<Student> students = studentRepository.findAll();
 
-        students.forEach(student -> {
-            System.out.println(student.getEmail());
-        });
-        students.forEach(Student::getEmail);
-
-        return students.isEmpty() ? Optional.empty() : Optional.of(students);
+        if (students.isEmpty()) {
+            throw new ResourceNotFoundException("No students found");
+        } else {
+            return Optional.of(students);
+        }
     }
 
     public Optional<Student> getStudentById(int id) {

@@ -38,9 +38,8 @@ public class StudentRegistration {
 
     @GetMapping("/allStudents")
     public ResponseEntity<List<Student>> getStudentDetails(){
-         List<Student> response;
         Optional<List<Student>> students = studentService.getAllStudents();
-       return null;
+       return status(HttpStatus.OK).body(students.get());
     }
 
     @GetMapping("{studentId}")
@@ -48,7 +47,6 @@ public class StudentRegistration {
         Optional<Student> student = studentService.getStudentById(studentId);
         return status(HttpStatus.OK)
                 .body(student);
-
     }
 
     @PostMapping("addStudent")
@@ -68,8 +66,6 @@ public class StudentRegistration {
             return status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseDto(StudentMangementConstants.STATUS_417, StudentMangementConstants.MESSAGE_417_DELETE));
         }
-
-
     }
 
     @GetMapping("guardian/{studentId}")

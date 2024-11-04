@@ -38,7 +38,13 @@ public class StudentService implements IStudentService {
     }
 
     public Optional<Student> getStudentById(int id) {
-        return studentRepository.findById(id);
+
+        Optional<Student> student = studentRepository.findById(id);
+        if (student.isPresent()) {
+            return student;
+        } else {
+            throw new ResourceNotFoundException("Student with id " + id + " not found");
+        }
 
     }
 

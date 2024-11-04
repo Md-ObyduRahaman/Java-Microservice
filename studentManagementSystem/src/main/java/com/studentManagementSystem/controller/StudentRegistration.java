@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.http.ResponseEntity.status;
+
 @RestController
 @RequestMapping("/student")
 public class StudentRegistration {
@@ -42,30 +44,28 @@ public class StudentRegistration {
     }
 
     @GetMapping("{studentId}")
-    public ResponseEntity< Optional<Student>> getStudentDetails(@PathVariable Integer studentId){
-         Optional<Student> response;
+    public ResponseEntity<Optional<Student>> getStudentDetails(@PathVariable Integer studentId){
         Optional<Student> student = studentService.getStudentById(studentId);
-        return null;
+        return status(HttpStatus.OK)
+                .body(student);
+
     }
 
     @PostMapping("addStudent")
     public ResponseEntity<StudentDto> addStudent(@Valid @RequestBody StudentDto student){
         StudentDto studentDto = iStudentService.addStudent(student);
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
+        return status(HttpStatus.CREATED)
                 .body(studentDto);
     }
     @DeleteMapping("{studentID}")
     public ResponseEntity<ResponseDto> deleteStudent(@PathVariable Integer studentID){
         boolean deleteStudent = iStudentService.deleteStudent(studentID);
         if(deleteStudent) {
-            return ResponseEntity
-                    .status(HttpStatus.OK)
+            return status(HttpStatus.OK)
                     .body(new ResponseDto(StudentMangementConstants.STATUS_200, StudentMangementConstants.MESSAGE_200));
         }
         else {
-            return ResponseEntity
-                    .status(HttpStatus.EXPECTATION_FAILED)
+            return status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseDto(StudentMangementConstants.STATUS_417, StudentMangementConstants.MESSAGE_417_DELETE));
         }
 

@@ -13,7 +13,7 @@ public interface IStudentService {
 
     Optional<Student> getStudentById(int id);
 
-    Optional<StudentDto> addStudent(StudentDto student);
+    StudentDto addStudent(StudentDto student);
 
     Optional<Student> updateStudent(Student student);
 

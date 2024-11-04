@@ -33,20 +33,26 @@ public class StudentService implements IStudentService {
         return studentRepository.findById(id);
     }
 
-    public Optional<StudentDto> addStudent(StudentDto studentDto) {
+    public StudentDto addStudent(StudentDto studentDto) {
+        // Check if a student with the same email already exists
         if (studentRepository.existsByEmail(studentDto.getEmail())) {
             throw new StudentAlreadyExistsException("Student with email '" + studentDto.getEmail() + "' already exists.");
         }
 
+        // Convert DTO to entity
         Student student = StudentMapper.toEntity(studentDto);
 
+        // Save the student entity to the repository
         Student savedStudent = studentRepository.save(student);
 
+        // Check if the save was successful
         if (savedStudent.getId() == null) {
             throw new StudentSaveFailedException("Failed to save the student to the database.");
         }
-        return Optional.of(StudentMapper.toDto(savedStudent));
+
+        return StudentMapper.toDto(savedStudent);
     }
+
 
     public Optional<Student> updateStudent(Student student) {
         studentRepository.save(student);

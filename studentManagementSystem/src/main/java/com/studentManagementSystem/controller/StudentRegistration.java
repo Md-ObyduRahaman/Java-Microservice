@@ -1,6 +1,7 @@
 package com.studentManagementSystem.controller;
 
 
+import com.parentsManagementSystem.dto.ResponseDto;
 import com.studentManagementSystem.dto.ParentDetailsDto;
 import com.studentManagementSystem.dto.StudentDto;
 import com.studentManagementSystem.entity.Student;
@@ -10,6 +11,7 @@ import com.studentManagementSystem.service.impl.StudentService;
 import io.github.resilience4j.retry.annotation.Retry;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,11 +48,11 @@ public class StudentRegistration {
     }
 
     @PostMapping("addStudent")
-    public ResponseEntity<Student> addStudent(@Valid @RequestBody StudentDto student){
-         Student response;
-        Optional<StudentDto> student1 = iStudentService.addStudent(student);
-
-        return null;
+    public ResponseEntity<StudentDto> addStudent(@Valid @RequestBody StudentDto student){
+        StudentDto studentDto = iStudentService.addStudent(student);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(studentDto);
     }
     @DeleteMapping("{studentID}")
     public ResponseEntity<Boolean> deleteStudent(@PathVariable Integer studentID){

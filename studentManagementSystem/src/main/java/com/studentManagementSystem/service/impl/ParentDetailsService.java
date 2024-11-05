@@ -8,6 +8,7 @@ import com.studentManagementSystem.exception.GlobalExceptionHandler;
 import com.studentManagementSystem.exception.ParentServiceException;
 import com.studentManagementSystem.exception.ResourceNotFoundException;
 import com.studentManagementSystem.service.ParentService;
+import com.studentManagementSystem.util.FeignErrorHandler;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,72 +21,27 @@ import java.util.Optional;
 public class ParentDetailsService {
 
     @Autowired
-    private ObjectMapper objectMapper;
-
-    @Autowired
     ParentService parentService;
     public Optional<ParentDetailsDto> getParentById(Integer id) {
-        String response = null;
         Map<String, Object> map = null;
-
-
         try {
-            response = new ObjectMapper().writeValueAsString(parentService.getParentDetails(id));
-            map = new ObjectMapper().readValue(response, Map.class);
+            map = FeignErrorHandler.parseResponse(parentService.getParentDetails(id));
 
-        }  catch (JsonProcessingException e) {
-            throw new ParentServiceException("JSON_PROCESSING_ERROR", "Error processing JSON response", null, null);
+        }catch (FeignException feignEx) {
+            FeignErrorHandler.handleFeignException(feignEx);
         }
-        catch (FeignException feignEx) {
-            try {
-                map = new ObjectMapper().readValue(feignEx.contentUTF8(), Map.class);
-
-                String apiPath = (String) map.get("apiPath");
-                String errorCode = (String) map.get("errorCode");
-                String errorMessage = (String) map.get("errorMessage");
-                String errorTime = (String) map.get("errorTime");
-
-                throw new ParentServiceException(errorCode, errorMessage, apiPath, errorTime);
-
-            } catch (Exception parseEx) {
-                if (parseEx instanceof  ParentServiceException) throw (ParentServiceException) parseEx;
-                throw new ParentServiceException("FEIGN_ERROR", "Error parsing Feign exception response", null, null);
-            }
-        }
-
         ParentDetailsDto addParentDetailsDto = new ObjectMapper().convertValue(map, ParentDetailsDto.class);
         return Optional.ofNullable(addParentDetailsDto);
-
     }
     public Optional<ParentDetailsDto> addParent(ParentDetailsDto parentDetails) {
-        String response = null;
         Map<String, Object> map = null;
-
         try {
-            response = new ObjectMapper().writeValueAsString(parentService.addParent(parentDetails));
-            map = new ObjectMapper().readValue(response, Map.class);
-
-        }  catch (JsonProcessingException e) {
-            throw new ParentServiceException("JSON_PROCESSING_ERROR", "Error processing JSON response", null, null);
+            map = FeignErrorHandler.parseResponse(parentService.addParent(parentDetails));
         }
         catch (FeignException feignEx) {
-            try {
-               map = new ObjectMapper().readValue(feignEx.contentUTF8(), Map.class);
-
-                String apiPath = (String) map.get("apiPath");
-                String errorCode = (String) map.get("errorCode");
-                String errorMessage = (String) map.get("errorMessage");
-                String errorTime = (String) map.get("errorTime");
-
-                throw new ParentServiceException(errorCode, errorMessage, apiPath, errorTime);
-
-            } catch (Exception parseEx) {
-                if (parseEx instanceof  ParentServiceException) throw (ParentServiceException) parseEx;
-                throw new ParentServiceException("FEIGN_ERROR", "Error parsing Feign exception response", null, null);
-            }
+            FeignErrorHandler.handleFeignException(feignEx);
         }
-
-        ParentDetailsDto addParentDetailsDto = new ObjectMapper().convertValue(map.get("data"), ParentDetailsDto.class);
+        ParentDetailsDto addParentDetailsDto = new ObjectMapper().convertValue(map, ParentDetailsDto.class);
         return Optional.ofNullable(addParentDetailsDto);
     }
 

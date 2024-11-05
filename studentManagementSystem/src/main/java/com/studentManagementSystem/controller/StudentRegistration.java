@@ -71,10 +71,11 @@ public class StudentRegistration {
     @GetMapping("guardian/{studentId}")
     //@CircuitBreaker(name = "parentDetailsBreaker" , fallbackMethod = "parentDetailsFallback")
     @Retry(name = "parentDetailsService", fallbackMethod = "parentDetailsFallback")
-    public ResponseEntity< Optional<Student>> getStudentParentDetails(@PathVariable Integer studentId){
-         Optional<Student> response;
-        Optional<Student> student = studentService.getStudentById(studentId);
-        return null;
+    public ResponseEntity< Optional<ParentDetailsDto>> getStudentParentDetails(@PathVariable Integer studentId){
+         Optional<ParentDetailsDto> response;
+        Optional<ParentDetailsDto> student = parentDetailsService.getParentById(studentId);
+        return status(HttpStatus.OK)
+                .body(student);
     }
 
 

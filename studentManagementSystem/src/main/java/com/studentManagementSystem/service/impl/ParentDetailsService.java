@@ -38,7 +38,7 @@ public class ParentDetailsService {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        ParentDetailsDto parentDetailsDto = objectMapper.convertValue(map.get("data"), ParentDetailsDto.class);
+        ParentDetailsDto parentDetailsDto = objectMapper.convertValue(map, ParentDetailsDto.class);
         return Optional.ofNullable(parentDetailsDto);
 
     }

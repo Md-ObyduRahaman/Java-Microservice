@@ -14,8 +14,8 @@ import java.util.Optional;
 
 @FeignClient(name = "PARENT-MANAGEMENT-SYSTEM")
 public interface ParentService {
-    @GetMapping("/Parent/guardian/{parentID}")
-    public ParentDetailsDto getParentDetails(@PathVariable("parentID") Integer parentID);
+    @GetMapping("/Parent/guardian/{studentId}")
+    public ParentDetailsDto getParentDetails(@PathVariable("studentId") Integer parentID);
     @PostMapping("/Parent/addParentDetails")
     public ParentDetailsDto addParent(@RequestBody ParentDetailsDto Parent);
 

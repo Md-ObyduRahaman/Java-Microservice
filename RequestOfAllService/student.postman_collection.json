@@ -143,7 +143,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/student/guardian/10",
+					"raw": "http://localhost:8082/student/addParent",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -151,8 +151,7 @@
 					"port": "8082",
 					"path": [
 						"student",
-						"guardian",
-						"10"
+						"addParent"
 					]
 				}
 			},

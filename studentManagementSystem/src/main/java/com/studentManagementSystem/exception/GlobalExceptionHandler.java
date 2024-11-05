@@ -72,4 +72,16 @@ public class GlobalExceptionHandler  extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorResponseDTO, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(ParentServiceException.class)
+    public ResponseEntity<ErrorResponseDto> handleParentServiceException(ParentServiceException ex, WebRequest webRequest) {
+        ErrorResponseDto errorResponse = new ErrorResponseDto(
+                webRequest.getDescription(false),  // Path from the request
+                HttpStatus.BAD_REQUEST,            // Status code
+                ex.getMessage(),                   // Error message from the exception
+                LocalDateTime.now()                // Timestamp
+        );
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
 }

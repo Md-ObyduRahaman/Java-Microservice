@@ -5,8 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.studentManagementSystem.dto.ParentDetailsDto;
 
 import com.studentManagementSystem.exception.GlobalExceptionHandler;
+import com.studentManagementSystem.exception.ParentServiceException;
 import com.studentManagementSystem.exception.ResourceNotFoundException;
 import com.studentManagementSystem.service.ParentService;
+import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -23,43 +25,68 @@ public class ParentDetailsService {
     @Autowired
     ParentService parentService;
     public Optional<ParentDetailsDto> getParentById(Integer id) {
-        String response;
+        String response = null;
+        Map<String, Object> map = null;
+
+
         try {
-             response = new ObjectMapper().writeValueAsString(parentService.getParentDetails(id));
-        }
-        catch (Exception e){
-            throw new ResourceNotFoundException("Parents data not found of this student");
+            response = new ObjectMapper().writeValueAsString(parentService.getParentDetails(id));
+            map = new ObjectMapper().readValue(response, Map.class);
 
+        }  catch (JsonProcessingException e) {
+            throw new ParentServiceException("JSON_PROCESSING_ERROR", "Error processing JSON response", null, null);
         }
+        catch (FeignException feignEx) {
+            try {
+                map = new ObjectMapper().readValue(feignEx.contentUTF8(), Map.class);
 
-        Map map = null;
-        try {
-            map = objectMapper.readValue(response, Map.class);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-        ParentDetailsDto parentDetailsDto = objectMapper.convertValue(map, ParentDetailsDto.class);
-        return Optional.ofNullable(parentDetailsDto);
+                String apiPath = (String) map.get("apiPath");
+                String errorCode = (String) map.get("errorCode");
+                String errorMessage = (String) map.get("errorMessage");
+                String errorTime = (String) map.get("errorTime");
 
-    }
-    public Optional<ParentDetailsDto> addParent(ParentDetailsDto parentDetails) {
-        String response;
-        try {
-             response = new ObjectMapper().writeValueAsString(parentService.addParent(parentDetails));
-        }
-        catch (ResourceNotFoundException | JsonProcessingException e){
-            throw new ResourceNotFoundException("Parents data not found of this student");
+                throw new ParentServiceException(errorCode, errorMessage, apiPath, errorTime);
+
+            } catch (Exception parseEx) {
+                if (parseEx instanceof  ParentServiceException) throw (ParentServiceException) parseEx;
+                throw new ParentServiceException("FEIGN_ERROR", "Error parsing Feign exception response", null, null);
+            }
         }
 
-
-        Map map = null;
-        try {
-            map = objectMapper.readValue(response, Map.class);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-        ParentDetailsDto addParentDetailsDto = objectMapper.convertValue(map.get("data"), ParentDetailsDto.class);
+        ParentDetailsDto addParentDetailsDto = new ObjectMapper().convertValue(map, ParentDetailsDto.class);
         return Optional.ofNullable(addParentDetailsDto);
 
     }
+    public Optional<ParentDetailsDto> addParent(ParentDetailsDto parentDetails) {
+        String response = null;
+        Map<String, Object> map = null;
+
+        try {
+            response = new ObjectMapper().writeValueAsString(parentService.addParent(parentDetails));
+            map = new ObjectMapper().readValue(response, Map.class);
+
+        }  catch (JsonProcessingException e) {
+            throw new ParentServiceException("JSON_PROCESSING_ERROR", "Error processing JSON response", null, null);
+        }
+        catch (FeignException feignEx) {
+            try {
+               map = new ObjectMapper().readValue(feignEx.contentUTF8(), Map.class);
+
+                String apiPath = (String) map.get("apiPath");
+                String errorCode = (String) map.get("errorCode");
+                String errorMessage = (String) map.get("errorMessage");
+                String errorTime = (String) map.get("errorTime");
+
+                throw new ParentServiceException(errorCode, errorMessage, apiPath, errorTime);
+
+            } catch (Exception parseEx) {
+                if (parseEx instanceof  ParentServiceException) throw (ParentServiceException) parseEx;
+                throw new ParentServiceException("FEIGN_ERROR", "Error parsing Feign exception response", null, null);
+            }
+        }
+
+        ParentDetailsDto addParentDetailsDto = new ObjectMapper().convertValue(map.get("data"), ParentDetailsDto.class);
+        return Optional.ofNullable(addParentDetailsDto);
+    }
+
 }

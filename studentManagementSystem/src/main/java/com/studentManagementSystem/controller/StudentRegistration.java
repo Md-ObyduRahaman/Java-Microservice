@@ -90,7 +90,7 @@ public class StudentRegistration {
 
 
     @PostMapping("/addParent")
-    public ResponseEntity<ParentDetailsDto> addParent(@RequestBody ParentDetailsDto Parent){
+    public ResponseEntity<ParentDetailsDto> addParent(@Valid @RequestBody ParentDetailsDto Parent){
          ParentDetailsDto response;
         Optional<ParentDetailsDto> Parent1=parentDetailsService.addParent(Parent);
 

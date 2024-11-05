@@ -11,6 +11,7 @@
 	<groupId>com.StudentManagementSystem</groupId>
 	<artifactId>StudentManagementSystem</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>StudentManagementSystem</name>
 	<description>Microservice using Spring Boot for StudentManagementSystem</description>
 	<url/>

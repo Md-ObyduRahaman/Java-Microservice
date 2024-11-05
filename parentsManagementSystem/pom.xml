@@ -11,6 +11,7 @@
 	<groupId>com.parentsManagementSystem</groupId>
 	<artifactId>parentsManagementSystem</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>parentsManagementSystem</name>
 	<description>Microservice using Spring Boot for parentsManagementSystem</description>
 	<url/>

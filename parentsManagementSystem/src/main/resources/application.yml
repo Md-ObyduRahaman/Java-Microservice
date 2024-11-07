@@ -1,13 +1,16 @@
 server:
   port: 8083
+
 spring:
   application:
     name: Parent-Management-System
+
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/parentsManagementSystem
-    username: root
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:parentsManagementSystem;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
     password:
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -15,8 +18,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.MySQLDialect
-  #config:
+        dialect: org.hibernate.dialect.H2Dialect
+
+    #config:
     #import: optional:configserver:http://localhost:8000
 
 
